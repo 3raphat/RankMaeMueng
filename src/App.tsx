@@ -16,6 +16,7 @@ import axois from "axios"
 import { toast } from "sonner"
 import { formatSeason } from "./lib/formatSeason"
 import { separateId } from "./lib/separateId"
+import valorantLogo from "./assets/valorant.svg"
 
 interface MMRData {
   current_data: {
@@ -78,11 +79,7 @@ function App() {
 
   return (
     <div className="max-w-3xl mx-auto flex flex-col space-y-4">
-      <img
-        src="./src/assets/valorant.svg"
-        alt="valorant"
-        className="w-[180px] mx-auto"
-      />
+      <img src={valorantLogo} alt="valorant" className="w-[180px] mx-auto" />
       <h1 className="text-5xl text-center font-bold">
         ฝั่งตรงข้าม แรงค์ไรวะ <br />
         <span className="text-2xl">
