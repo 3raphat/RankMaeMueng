@@ -23,7 +23,6 @@ interface MMRData {
     currenttierpatched: string
     images: {
       large: string
-      small: string
     }
     mmr_change_to_last_game: number
     ranking_in_tier: number
@@ -121,64 +120,62 @@ function App() {
       >
         ค้นหา
       </Button>
-      <div>
-        {rankData && (
-          <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="lg">
-            <ModalContent>
-              {(onClose) => (
-                <>
-                  <ModalHeader className="flex flex-col gap-1">
-                    แต่น แตน แต๊น
-                  </ModalHeader>
-                  <ModalBody>
-                    <div className="flex flex-col gap-4">
-                      <div className="flex flex-col sm:flex-row gap-4">
-                        <img
-                          src={rankData.current_data.images.large}
-                          alt="rank"
-                          className="w-[100px] mx-auto"
-                        />
-                        <div className="flex flex-col gap-1">
-                          <h2 className="text-2xl font-bold">
-                            ปัจจุบันแรงค์{" "}
-                            <span className="underline underline-offset-4">
-                              {rankData.current_data.currenttierpatched}
-                            </span>{" "}
-                            จ้าาา...
-                            <br />
-                            มี {rankData.current_data.ranking_in_tier} แต้ม
-                          </h2>
-                          <p>
-                            เกมล่าสุด{" "}
-                            {rankData.current_data.mmr_change_to_last_game > 0
-                              ? "+"
-                              : ""}
-                            {rankData.current_data.mmr_change_to_last_game} แต้ม
-                          </p>
-                        </div>
-                      </div>
+
+      {rankData && (
+        <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="lg">
+          <ModalContent>
+            {(onClose) => (
+              <>
+                <ModalHeader className="flex flex-col gap-1">
+                  แต่น แตน แต๊น
+                </ModalHeader>
+                <ModalBody>
+                  <div className="flex flex-col gap-4">
+                    <div className="flex flex-col sm:flex-row gap-4">
+                      <img
+                        src={rankData.current_data.images.large}
+                        alt="rank"
+                        className="w-[100px] mx-auto"
+                      />
                       <div className="flex flex-col gap-1">
                         <h2 className="text-2xl font-bold">
-                          แรงค์สูงสุด เคยอยู่{" "}
-                          {rankData.highest_rank.patched_tier}
+                          ปัจจุบันแรงค์{" "}
+                          <span className="underline underline-offset-4">
+                            {rankData.current_data.currenttierpatched}
+                          </span>{" "}
+                          จ้าาา...
+                          <br />
+                          มี {rankData.current_data.ranking_in_tier} แต้ม
                         </h2>
                         <p>
-                          ในซีซั่น {formatSeason(rankData.highest_rank.season)}
+                          เกมล่าสุด{" "}
+                          {rankData.current_data.mmr_change_to_last_game > 0
+                            ? "+"
+                            : ""}
+                          {rankData.current_data.mmr_change_to_last_game} แต้ม
                         </p>
                       </div>
                     </div>
-                  </ModalBody>
-                  <ModalFooter>
-                    <Button color="danger" onPress={onClose}>
-                      เออ รู้แล้ว
-                    </Button>
-                  </ModalFooter>
-                </>
-              )}
-            </ModalContent>
-          </Modal>
-        )}
-      </div>
+                    <div className="flex flex-col gap-1">
+                      <h2 className="text-2xl font-bold">
+                        แรงค์สูงสุด เคยอยู่ {rankData.highest_rank.patched_tier}
+                      </h2>
+                      <p>
+                        ในซีซั่น {formatSeason(rankData.highest_rank.season)}
+                      </p>
+                    </div>
+                  </div>
+                </ModalBody>
+                <ModalFooter>
+                  <Button color="danger" onPress={onClose}>
+                    เออ รู้แล้ว
+                  </Button>
+                </ModalFooter>
+              </>
+            )}
+          </ModalContent>
+        </Modal>
+      )}
     </div>
   )
 }
