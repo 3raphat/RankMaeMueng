@@ -48,11 +48,15 @@ function App() {
   const [region, setRegion] = useState<Selection>(new Set(["ap"]))
   const [id, setId] = useState("")
 
+  const [isLoading, setIsLoading] = useState(false)
+
   const [rankData, setRankData] = useState<MMRData>()
 
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
 
   function handleSubmit() {
+    setIsLoading(true)
+
     const { name, tag } = separateId(id)
 
     toast.promise(
@@ -67,6 +71,9 @@ function App() {
         .then((res) => {
           setRankData(res.data.data)
           onOpen()
+        })
+        .finally(() => {
+          setIsLoading(false)
         }),
       {
         loading: "Loading...",
@@ -117,8 +124,31 @@ function App() {
         type="submit"
         onPress={handleSubmit}
         isDisabled={!separateId(id).name || !separateId(id).tag}
+        isLoading={isLoading}
+        spinner={
+          <svg
+            className="animate-spin h-5 w-5 text-current"
+            fill="none"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              className="opacity-25"
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              strokeWidth="4"
+            />
+            <path
+              className="opacity-75"
+              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              fill="currentColor"
+            />
+          </svg>
+        }
       >
-        ค้นหา
+        {isLoading ? "หาอยู่" : "ค้นหา"}
       </Button>
 
       {rankData && (
